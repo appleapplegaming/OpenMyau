@@ -1,0 +1,24 @@
+package myau.module.modules;
+
+import myau.event.EventTarget;
+import myau.module.Module;
+import myau.property.properties.TextProperty;
+import myau.util.ChatUtil;
+import net.minecraft.client.Minecraft;
+
+public class AutoChat extends Module {
+    private static final Minecraft mc = Minecraft.getMinecraft();
+    private final TextProperty text = new TextProperty("message", "Hello World!");
+
+    public AutoChat() {
+        super("AutoChat", false);
+    }
+
+    @EventTarget
+    public void onEnabled() {
+        ChatUtil.sendMessage(text.getValue());
+
+        setEnabled(false);
+    }
+
+}
