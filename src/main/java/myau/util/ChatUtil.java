@@ -23,8 +23,12 @@ public class ChatUtil {
     }
 
     public static void sendMessage(String string) {
-        if (ChatUtil.mc.thePlayer != null) {
-            ChatUtil.mc.thePlayer.sendChatMessage(string);
-        }
+        if (mc == null || mc.thePlayer == null) return;
+        if (string == null) return;
+
+        // Trim whitespace
+        String m = string.trim();
+
+        mc.thePlayer.sendChatMessage(m);
     }
 }

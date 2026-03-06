@@ -105,6 +105,14 @@ public class ClickGui extends GuiScreen {
         miscModules.add(Myau.moduleManager.getModule(AutoAnduril.class));
         miscModules.add(Myau.moduleManager.getModule(InventoryClicker.class));
 
+<<<<<<< Updated upstream
+=======
+        List<Module> chatModules = new ArrayList<>();
+        chatModules.add(Myau.moduleManager.getModule(AutoChat.class));
+        chatModules.add(Myau.moduleManager.getModule(AutoReply.class));
+        chatModules.add(Myau.moduleManager.getModule(Spammer.class));
+
+>>>>>>> Stashed changes
         Comparator<Module> comparator = Comparator.comparing(m -> m.getName().toLowerCase());
         combatModules.sort(comparator);
         movementModules.sort(comparator);

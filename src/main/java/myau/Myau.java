@@ -65,9 +65,11 @@ public class Myau {
         moduleManager.modules.put(AntiObbyTrap.class, new AntiObbyTrap());
         moduleManager.modules.put(AntiObfuscate.class, new AntiObfuscate());
         moduleManager.modules.put(AntiVoid.class, new AntiVoid());
+        moduleManager.modules.put(AutoChat.class, new AutoChat());
         moduleManager.modules.put(AutoClicker.class, new AutoClicker());
         moduleManager.modules.put(AutoAnduril.class, new AutoAnduril());
         moduleManager.modules.put(AutoHeal.class, new AutoHeal());
+        moduleManager.modules.put(AutoReply.class, new AutoReply());
         moduleManager.modules.put(AutoTool.class, new AutoTool());
         moduleManager.modules.put(BedNuker.class, new BedNuker());
         moduleManager.modules.put(BedESP.class, new BedESP());
