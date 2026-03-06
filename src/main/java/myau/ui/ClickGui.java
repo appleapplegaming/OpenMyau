@@ -105,14 +105,11 @@ public class ClickGui extends GuiScreen {
         miscModules.add(Myau.moduleManager.getModule(AutoAnduril.class));
         miscModules.add(Myau.moduleManager.getModule(InventoryClicker.class));
 
-<<<<<<< Updated upstream
-=======
         List<Module> chatModules = new ArrayList<>();
         chatModules.add(Myau.moduleManager.getModule(AutoChat.class));
         chatModules.add(Myau.moduleManager.getModule(AutoReply.class));
         chatModules.add(Myau.moduleManager.getModule(Spammer.class));
 
->>>>>>> Stashed changes
         Comparator<Module> comparator = Comparator.comparing(m -> m.getName().toLowerCase());
         combatModules.sort(comparator);
         movementModules.sort(comparator);
@@ -126,6 +123,7 @@ public class ClickGui extends GuiScreen {
         registered.addAll(renderModules);
         registered.addAll(playerModules);
         registered.addAll(miscModules);
+        registered.addAll(chatModules);
 
         for (Module module : Myau.moduleManager.modules.values()) {
             if (!registered.contains(module)) {
@@ -160,6 +158,11 @@ public class ClickGui extends GuiScreen {
         CategoryComponent misc = new CategoryComponent("Misc", miscModules);
         misc.setY(topOffset);
         categoryList.add(misc);
+
+        CategoryComponent chat = new CategoryComponent("Chat", chatModules);
+        chat.setY(topOffset);
+        topOffset += 20;
+        categoryList.add(chat);
 
         loadPositions();
     }
