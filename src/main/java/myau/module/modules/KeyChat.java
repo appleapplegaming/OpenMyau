@@ -5,13 +5,13 @@ import myau.property.properties.TextProperty;
 import myau.util.ChatUtil;
 import net.minecraft.client.Minecraft;
 
-public class AutoChat extends Module {
+public class KeyChat extends Module {
     private static final Minecraft mc = Minecraft.getMinecraft();
 
     public final TextProperty text = new TextProperty("message", "Hello World!");
 
-    public AutoChat() {
-        super("AutoChat", false);
+    public KeyChat() {
+        super("KeyChat", false);
     }
 
     @Override

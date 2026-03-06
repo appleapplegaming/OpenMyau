@@ -10,6 +10,7 @@ import myau.module.modules.*;
 import myau.ui.components.CategoryComponent;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
+import tv.twitch.chat.ChatUserMode;
 
 import java.awt.*;
 import java.io.File;
@@ -106,8 +107,9 @@ public class ClickGui extends GuiScreen {
         miscModules.add(Myau.moduleManager.getModule(InventoryClicker.class));
 
         List<Module> chatModules = new ArrayList<>();
-        chatModules.add(Myau.moduleManager.getModule(AutoChat.class));
         chatModules.add(Myau.moduleManager.getModule(AutoReply.class));
+        chatModules.add(Myau.moduleManager.getModule(KeyChat.class));
+        chatModules.add(Myau.moduleManager.getModule(QuickMaths.class));
         chatModules.add(Myau.moduleManager.getModule(Spammer.class));
 
         Comparator<Module> comparator = Comparator.comparing(m -> m.getName().toLowerCase());
