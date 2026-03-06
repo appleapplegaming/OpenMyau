@@ -158,10 +158,10 @@ public class ClickGui extends GuiScreen {
         CategoryComponent misc = new CategoryComponent("Misc", miscModules);
         misc.setY(topOffset);
         categoryList.add(misc);
+        topOffset += 20;
 
         CategoryComponent chat = new CategoryComponent("Chat", chatModules);
         chat.setY(topOffset);
-        topOffset += 20;
         categoryList.add(chat);
 
         loadPositions();

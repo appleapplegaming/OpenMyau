@@ -2,7 +2,7 @@ import org.apache.commons.lang3.SystemUtils
 plugins {
     idea
     java
-    id("gg.essential.loom") version "0.10.0.+"
+    id("org.polyfrost.loom") version "1.6.polyfrost.6"
     id("dev.architectury.architectury-pack200") version "0.1.3"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
@@ -16,37 +16,38 @@ val jarName: String by project
 val transformerFile = file("src/main/resources/accesstransformer.cfg")
 // Toolchains:
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 // Minecraft configuration:
 loom {
     log4jConfigs.from(file("log4j2.xml"))
-    launchConfigs {
-        "client" {
-            // If you don't want mixins, remove these lines
-            property("mixin.debug", "true")
-            arg("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
-        }
-    }
+
     runConfigs {
-        "client" {
+        named("client") {
+            // Set mixin debug as a JVM system property
+            vmArg("-Dmixin.debug=true")
+
+            // Add tweakClass argument (legacy Forge+Mixin)
+            programArg("--tweakClass")
+            programArg("org.spongepowered.asm.launch.MixinTweaker")
+
             if (SystemUtils.IS_OS_MAC_OSX) {
-                // This argument causes a crash on macOS
                 vmArgs.remove("-XstartOnFirstThread")
             }
         }
+
         remove(getByName("server"))
     }
+
     forge {
         pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
-        // If you don't want mixins, remove this lines
         mixinConfig("mixins.$modid.json")
-	    if (transformerFile.exists()) {
-			println("Installing access transformer")
-		    accessTransformer(transformerFile)
-	    }
+        if (transformerFile.exists()) {
+            println("Installing access transformer")
+            accessTransformer(transformerFile)
+        }
     }
-    // If you don't want mixins, remove these lines
+
     mixin {
         defaultRefmapName.set("mixins.$modid.refmap.json")
     }
@@ -68,17 +69,21 @@ dependencies {
     minecraft("com.mojang:minecraft:1.8.9")
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
-    // If you don't want mixins, remove these lines
-    shadowImpl("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        isTransitive = false
-    }
+
+    shadowImpl("org.spongepowered:mixin:0.7.11-SNAPSHOT") { isTransitive = false }
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT")
-    // If you don't want to log in with your real minecraft account, remove this line
+
+    // ✅ add this line
+    annotationProcessor("com.google.code.gson:gson:2.10.1")
+    annotationProcessor("com.google.guava:guava:33.0.0-jre")
+
     runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.2.1")
 }
 // Tasks:
-tasks.withType(JavaCompile::class) {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
+    // Java 8 bytecode, even though toolchain is 21
+    options.release.set(8)
 }
 tasks.withType(org.gradle.jvm.tasks.Jar::class) {
     archiveBaseName.set(jarName)
@@ -124,3 +129,7 @@ tasks.shadowJar {
     fun relocate(name: String) = relocate(name, "$baseGroup.deps.$name")
 }
 tasks.assemble.get().dependsOn(tasks.remapJar)
+
+tasks.named<JavaExec>("runClient") {
+    setExecutable("C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.482.8-hotspot\\bin\\java.exe");
+}
