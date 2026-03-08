@@ -63,6 +63,7 @@ public class ClickGui extends GuiScreen {
 
         List<Module> renderModules = new ArrayList<>();
         renderModules.add(Myau.moduleManager.getModule(ESP.class));
+        renderModules.add(Myau.moduleManager.getModule(EggESP.class));
         renderModules.add(Myau.moduleManager.getModule(Chams.class));
         renderModules.add(Myau.moduleManager.getModule(FullBright.class));
         renderModules.add(Myau.moduleManager.getModule(Tracers.class));

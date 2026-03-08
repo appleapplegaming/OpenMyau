@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class ChestESP extends Module {
     private static final Minecraft mc = Minecraft.getMinecraft();
-    public final ColorProperty chest = new ColorProperty("chest", new Color(255, 170, 0).getRGB());
+    public final ColorProperty chest = new ColorProperty("chest", new Color(113, 241, 253).getRGB());
     public final ColorProperty trappedChest = new ColorProperty("trapped-chest", new Color(255, 43, 0).getRGB());
     public final ColorProperty enderChest = new ColorProperty("ender-chest", new Color(26, 17, 0).getRGB());
     public final BooleanProperty tracers = new BooleanProperty("tracers", false);
