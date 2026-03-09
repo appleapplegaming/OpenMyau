@@ -6,6 +6,7 @@ import myau.events.PacketEvent;
 import myau.events.UpdateEvent; // rename if your project uses a different tick/update event
 import myau.module.Module;
 import myau.property.properties.FloatProperty;
+import myau.property.properties.TextProperty;
 import myau.util.ChatUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Packet;
@@ -21,12 +22,13 @@ public class QuickMaths extends Module {
 
     // User-editable: wait this long AFTER detecting the math before sending the answer
     public final FloatProperty delay = new FloatProperty("delay", 1.0f, 0.0f, 10.0f);
+    public final TextProperty prefix = new TextProperty("prefix", "");
 
     // Hidden/internal cooldown: one answer max every 30 seconds
     private static final long ANSWER_COOLDOWN_MS = 30_000L;
 
     private static final Pattern QUICK_MATHS_PATTERN = Pattern.compile(
-            "quick\\s*maths\\s*!?\\s*[:\\-»>]*\\s*(.+)",
+            "quick\\s*maths\\s*!?\\s*solve\\s*:\\s*(.+)",
             Pattern.CASE_INSENSITIVE
     );
 
@@ -78,7 +80,8 @@ public class QuickMaths extends Module {
 
         long now = System.currentTimeMillis();
         if (now >= scheduledSendTime) {
-            ChatUtil.sendMessage(pendingAnswer);
+            String answer = prefix.getValue() + " " + pendingAnswer;
+            ChatUtil.sendMessage(answer);
             lastAnswerTime = now;
             pendingAnswer = null;
             scheduledSendTime = -1L;
