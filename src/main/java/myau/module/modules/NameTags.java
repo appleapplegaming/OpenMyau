@@ -54,6 +54,7 @@ public class NameTags extends Module {
     public final BooleanProperty effects = new BooleanProperty("effects", true);
     public final BooleanProperty players = new BooleanProperty("players", true);
     public final BooleanProperty friends = new BooleanProperty("friends", true);
+    public final BooleanProperty truce = new BooleanProperty("truce", true);
     public final BooleanProperty enemies = new BooleanProperty("enemies", true);
     public final BooleanProperty bossees = new BooleanProperty("bosses", false);
     public final BooleanProperty mobs = new BooleanProperty("mobs", false);
@@ -79,6 +80,8 @@ public class NameTags extends Module {
                     return this.bots.getValue();
                 } else if (TeamUtil.isFriend((EntityPlayer) entityLivingBase)) {
                     return this.friends.getValue();
+                } else if (TeamUtil.isTruce((EntityPlayer) entityLivingBase)) {
+                    return this.truce.getValue();
                 } else {
                     return TeamUtil.isTarget((EntityPlayer) entityLivingBase) ? this.enemies.getValue() : this.players.getValue();
                 }
@@ -228,7 +231,17 @@ public class NameTags extends Module {
                                     GlStateManager.popMatrix();
                                 }
                             }
-                            if (TeamUtil.isFriend((EntityPlayer) entity)) {
+                            if (TeamUtil.isTruce((EntityPlayer) entity)) {
+                                RenderUtil.enableRenderState();
+                                float x1 = (float) (-width) / 2.0F - 1.0F;
+                                view = (float) (-mc.fontRendererObj.FONT_HEIGHT) - 1.0F;
+                                float y1 = (float) width / 2.0F + 1.0F;
+                                float offset = this.shadow.getValue() ? 0.0F : -1.0F;
+                                int truceColor = Myau.truceManager.getColor().getRGB();
+                                RenderUtil.drawOutlineRect(x1, view, y1, offset, 1.5F, 0, truceColor);
+                                RenderUtil.disableRenderState();
+                            }
+                            else if (TeamUtil.isFriend((EntityPlayer) entity)) {
                                 RenderUtil.enableRenderState();
                                 float x1 = (float) (-width) / 2.0F - 1.0F;
                                 view = (float) (-mc.fontRendererObj.FONT_HEIGHT) - 1.0F;
@@ -237,7 +250,8 @@ public class NameTags extends Module {
                                 int friendColor = Myau.friendManager.getColor().getRGB();
                                 RenderUtil.drawOutlineRect(x1, view, y1, offset, 1.5F, 0, friendColor);
                                 RenderUtil.disableRenderState();
-                            } else if (TeamUtil.isTarget((EntityPlayer) entity)) {
+                            }
+                            else if (TeamUtil.isTarget((EntityPlayer) entity)) {
                                 RenderUtil.enableRenderState();
                                 float x1 = (float) (-width) / 2.0F - 1.0F;
                                 view = (float) (-mc.fontRendererObj.FONT_HEIGHT) - 1.0F;

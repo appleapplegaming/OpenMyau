@@ -74,6 +74,10 @@ public abstract class PlayerFileManager {
         return this.players.stream().anyMatch(string2 -> string2.equalsIgnoreCase(string));
     }
 
+    public boolean isTruce(String string){
+        return this.players.stream().anyMatch(string2 -> string2.equalsIgnoreCase(string));
+    }
+
     public ArrayList<String> getPlayers() {
         return this.players;
     }

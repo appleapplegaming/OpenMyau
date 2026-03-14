@@ -131,5 +131,5 @@ tasks.shadowJar {
 tasks.assemble.get().dependsOn(tasks.remapJar)
 
 tasks.named<JavaExec>("runClient") {
-    setExecutable("C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.482.8-hotspot\\bin\\java.exe");
+    setExecutable("C:\\Program Files (x86)\\Java\\jre1.8.0_481\\bin\\java.exe");
 }

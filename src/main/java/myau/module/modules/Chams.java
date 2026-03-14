@@ -21,6 +21,7 @@ public class Chams extends Module {
     private static final Minecraft mc = Minecraft.getMinecraft();
     public final BooleanProperty players = new BooleanProperty("players", true);
     public final BooleanProperty friends = new BooleanProperty("friends", true);
+    public final BooleanProperty truce = new BooleanProperty("truce", true);
     public final BooleanProperty enemiess = new BooleanProperty("enemies", true);
     public final BooleanProperty bosses = new BooleanProperty("bosses", false);
     public final BooleanProperty mobs = new BooleanProperty("mobs", false);
@@ -42,7 +43,10 @@ public class Chams extends Module {
                     return this.bots.getValue();
                 } else if (TeamUtil.isFriend((EntityPlayer) entityLivingBase)) {
                     return this.friends.getValue();
-                } else {
+                } else if (TeamUtil.isTruce((EntityPlayer) entityLivingBase)) {
+                    return this.truce.getValue();
+                }
+                else {
                     return TeamUtil.isTarget((EntityPlayer) entityLivingBase) ? this.enemiess.getValue() : this.players.getValue();
                 }
             } else {

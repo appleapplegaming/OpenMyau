@@ -143,4 +143,12 @@ public class TeamUtil {
     public static boolean isTarget(EntityPlayer player) {
         return Myau.targetManager.isFriend(player.getName());
     }
+
+    public static boolean isTruce(EntityPlayer player) {
+        return Myau.truceManager.isTruce(player.getName());
+    }
+
+
+
+
 }

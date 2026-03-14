@@ -238,6 +238,9 @@ public class KillAura extends Module {
                     return false;
                 } else if (TeamUtil.isFriend((EntityPlayer) entityLivingBase)) {
                     return false;
+                }
+                else if (TeamUtil.isTruce((EntityPlayer) entityLivingBase)) {
+                    return false;
                 } else {
                     return (!this.teams.getValue() || !TeamUtil.isSameTeam((EntityPlayer) entityLivingBase)) && (!this.botCheck.getValue() || !TeamUtil.isBot((EntityPlayer) entityLivingBase));
                 }

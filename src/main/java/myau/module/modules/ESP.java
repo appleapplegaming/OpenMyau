@@ -42,6 +42,7 @@ public class ESP extends Module {
     public final ModeProperty healthBar = new ModeProperty("health-bar", 0, new String[]{"NONE", "2D", "RAVEN"});
     public final BooleanProperty players = new BooleanProperty("players", true);
     public final BooleanProperty friends = new BooleanProperty("friends", true);
+    public final BooleanProperty truce = new BooleanProperty("truce", true);
     public final BooleanProperty enemies = new BooleanProperty("enemies", true);
     public final BooleanProperty self = new BooleanProperty("self", false);
     public final BooleanProperty bots = new BooleanProperty("bots", false);
@@ -65,6 +66,9 @@ public class ESP extends Module {
             else if (TeamUtil.isFriend(entityPlayer)) {
                 return this.friends.getValue();
             }
+            else if (TeamUtil.isTruce(entityPlayer)){
+                return this.truce.getValue();
+            }
             else {
                 return TeamUtil.isTarget(entityPlayer) ? this.enemies.getValue() : this.players.getValue();
             }
@@ -80,6 +84,9 @@ public class ESP extends Module {
         }
         else if (TeamUtil.isTarget(entityPlayer)) {
             return Myau.targetManager.getColor();
+        }
+        else if (TeamUtil.isTruce(entityPlayer)) {
+            return Myau.truceManager.getColor();
         }
         else {
             switch (this.color.getValue()) {

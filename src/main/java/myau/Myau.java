@@ -31,6 +31,7 @@ public class Myau {
     public static PlayerStateManager playerStateManager;
     public static FriendManager friendManager;
     public static TargetManager targetManager;
+    public static TruceManager truceManager;
     public static PropertyManager propertyManager;
     public static ModuleManager moduleManager;
     public static CommandManager commandManager;
@@ -48,6 +49,7 @@ public class Myau {
         playerStateManager = new PlayerStateManager();
         friendManager = new FriendManager();
         targetManager = new TargetManager();
+        truceManager = new TruceManager();
         propertyManager = new PropertyManager();
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
@@ -143,6 +145,7 @@ public class Myau {
         commandManager.commands.add(new PlayerCommand());
         commandManager.commands.add(new ShowCommand());
         commandManager.commands.add(new TargetCommand());
+        commandManager.commands.add(new TruceCommand());
         commandManager.commands.add(new ToggleCommand());
         commandManager.commands.add(new VclipCommand());
         for (Module module : moduleManager.modules.values()) {
@@ -172,6 +175,9 @@ public class Myau {
         }
         if (targetManager.file.exists()) {
             targetManager.load();
+        }
+        if (truceManager.file.exists()) {
+            truceManager.load();
         }
         Runtime.getRuntime().addShutdownHook(new Thread(config::save));
 
