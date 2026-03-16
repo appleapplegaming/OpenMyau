@@ -35,7 +35,6 @@ public class Myau {
     public static PropertyManager propertyManager;
     public static ModuleManager moduleManager;
     public static CommandManager commandManager;
-    public static KeyMessageManager keyMessageManager;
 
     public Myau() {
         this.init();
@@ -54,7 +53,6 @@ public class Myau {
         propertyManager = new PropertyManager();
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
-        keyMessageManager = new KeyMessageManager();
         EventManager.register(rotationManager);
         EventManager.register(floatManager);
         EventManager.register(blinkManager);
@@ -62,7 +60,6 @@ public class Myau {
         EventManager.register(lagManager);
         EventManager.register(moduleManager);
         EventManager.register(commandManager);
-        EventManager.register(keyMessageManager);
         moduleManager.modules.put(AimAssist.class, new AimAssist());
         moduleManager.modules.put(AntiAFK.class, new AntiAFK());
         moduleManager.modules.put(AntiDebuff.class, new AntiDebuff());
@@ -151,7 +148,6 @@ public class Myau {
         commandManager.commands.add(new TruceCommand());
         commandManager.commands.add(new ToggleCommand());
         commandManager.commands.add(new VclipCommand());
-        commandManager.commands.add(new KeyMessageCommand());
         for (Module module : moduleManager.modules.values()) {
             ArrayList<Property<?>> properties = new ArrayList<>();
             for (final Field field : module.getClass().getDeclaredFields()) {
@@ -182,9 +178,6 @@ public class Myau {
         }
         if (truceManager.file.exists()) {
             truceManager.load();
-        }
-        if (keyMessageManager.file.exists()) {
-            keyMessageManager.load();
         }
         Runtime.getRuntime().addShutdownHook(new Thread(config::save));
 
