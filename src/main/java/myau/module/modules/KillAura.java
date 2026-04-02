@@ -30,6 +30,7 @@ import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
@@ -222,6 +223,7 @@ public class KillAura extends Module {
     }
 
     private boolean isValidTarget(EntityLivingBase entityLivingBase) {
+        HitDiamond hitDiamond = (HitDiamond) Myau.moduleManager.modules.get(HitDiamond.class);
         if (!mc.theWorld.loadedEntityList.contains(entityLivingBase)) {
             return false;
         } else if (entityLivingBase != mc.thePlayer && entityLivingBase != mc.thePlayer.ridingEntity) {
@@ -229,7 +231,11 @@ public class KillAura extends Module {
                 return false;
             } else if (entityLivingBase.deathTime > 0) {
                 return false;
-            } else if (RotationUtil.angleToEntity(entityLivingBase) > this.fov.getValue().floatValue()) {
+            }
+            else if (hitDiamond.isEnabled() && hitDiamond.hasTooMuchDiamondArmor(entityLivingBase)) {
+                return false;
+            }
+            else if (RotationUtil.angleToEntity(entityLivingBase) > this.fov.getValue().floatValue()) {
                 return false;
             } else if (!this.throughWalls.getValue() && RotationUtil.rayTrace(entityLivingBase) != null) {
                 return false;
