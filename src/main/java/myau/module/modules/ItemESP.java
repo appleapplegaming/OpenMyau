@@ -83,7 +83,6 @@ public class ItemESP extends Module {
 
     private boolean isNametagItem(int itemId) {
         Item item = Item.getItemById(itemId);
-        Block block = Block.getBlockFromItem(item);
         return item == Items.name_tag;
     }
 

@@ -232,7 +232,7 @@ public class KillAura extends Module {
             } else if (entityLivingBase.deathTime > 0) {
                 return false;
             }
-            else if (hitDiamond.isEnabled() && hitDiamond.hasTooMuchDiamondArmor(entityLivingBase)) {
+            else if (!hitDiamond.isEnabled() && hitDiamond.hasTooMuchDiamondArmor(entityLivingBase)) {
                 return false;
             }
             else if (RotationUtil.angleToEntity(entityLivingBase) > this.fov.getValue().floatValue()) {

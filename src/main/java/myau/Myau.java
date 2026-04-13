@@ -133,6 +133,7 @@ public class Myau {
         moduleManager.modules.put(Wtap.class, new Wtap());
         moduleManager.modules.put(Xray.class, new Xray());
         moduleManager.modules.put(HitDiamond.class, new HitDiamond());
+        moduleManager.modules.put(AutoHotbarArmor.class, new AutoHotbarArmor());
         commandManager.commands.add(new BindCommand());
         commandManager.commands.add(new ConfigCommand());
         commandManager.commands.add(new DenickCommand());
